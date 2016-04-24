@@ -22,16 +22,16 @@ uint8_t OneWire::reset(void){
     interrupts();
     // wait until the wire is high... just in case
     do {
-        if (--retries == 0) return 0;
-
+        if (--retries == 0) {
+            Serial.println("Error - input is not high");
+            return 0;
+        }
         delayMicroseconds(3);
     } while ( !digitalReadFast());
 
     noInterrupts();
-
-    digitalWriteFastLow();
     pinModeFastOutput();   // drive output low
-
+    digitalWriteFastLow();
     interrupts();
     delayMicroseconds(480);
     noInterrupts();
@@ -40,21 +40,23 @@ uint8_t OneWire::reset(void){
 
     delayMicroseconds(70);
 
-    r =! digitalReadFast();
+    r =!digitalReadFast();
 
     interrupts();
 
-    delayMicroseconds(410);
-
+    delayMicroseconds(420);
+    if (!r) {
+        Serial.println("Error - reset pulse not received")
+    }
     return r;
 }
 
 void OneWire::write_bit(uint8_t v){
     if (v & 1) {
         noInterrupts();
-
+        pinModeFastOutput(); 
         digitalWriteFastLow();
-        pinModeFastOutput();   // drive output low
+          // drive output low
 
         delayMicroseconds(10);
 
@@ -65,9 +67,9 @@ void OneWire::write_bit(uint8_t v){
         delayMicroseconds(55);
     } else {
         noInterrupts();
-
+        pinModeFastOutput();
         digitalWriteFastLow();
-        pinModeFastOutput();   // drive output low
+           // drive output low
 
         delayMicroseconds(65);
 
@@ -122,7 +124,7 @@ void OneWire::write(uint8_t v, uint8_t power /* = 0 */) {
     if ( !power) {
         noInterrupts();
 
-        pinModeFastInput();
+        pinModeFastOutput();
         digitalWriteFastLow();
 
         interrupts();
@@ -136,7 +138,7 @@ void OneWire::write_bytes(const uint8_t *buf, uint16_t count, bool power /* = 0 
     if (!power) {
         noInterrupts();
 
-        pinModeFastInput();
+        pinModeFastOutput();
         digitalWriteFastLow();
 
         interrupts();
