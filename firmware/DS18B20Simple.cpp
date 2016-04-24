@@ -1,4 +1,4 @@
-#include "DS18B20.h"
+#include "DS18B20Simple.h"
 
 
 DS18B20::DS18B20(uint16_t pin){
