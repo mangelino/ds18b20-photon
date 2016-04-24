@@ -46,7 +46,7 @@ uint8_t OneWire::reset(void){
 
     delayMicroseconds(420);
     if (!r) {
-        Serial.println("Error - reset pulse not received")
+        Serial.println("Error - reset pulse not received");
     }
     return r;
 }
