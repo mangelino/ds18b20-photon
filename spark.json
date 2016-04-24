@@ -1,5 +1,5 @@
 {
-  "name": "DS18B20",
+  "name": "Dallas18B20",
   "author": "Massimiliano Angelino <massi.ang@gmail.com>",
   "license": "MIT",
   "version": "0.1.00",
