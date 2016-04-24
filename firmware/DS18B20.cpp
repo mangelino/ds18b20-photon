@@ -72,12 +72,13 @@ char* DS18B20::getChipName(){
 
 float DS18B20::getTemperature(){
     ds->reset();
-    ds->select(addr);
+    ds->skip();
+    //ds->select(addr);
     ds->write(0x44);        // start conversion, with parasite power on at the end
     delay(750);     // maybe 750ms is enough, maybe not
     // we might do a ds.depower() here, but the reset will take care of it.
     ds->reset();
-    ds->select(addr);
+    //ds->select(addr);
     ds->write(0xBE);         // Read Scratchpad
 
     for (int i = 0; i < 9; i++) {           // we need 9 bytes

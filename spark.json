@@ -1,7 +1,7 @@
 {
   "name": "DS18B20",
-  "author": "Lucas Figg <lukeusmc@gmail.com",
+  "author": "Massimiliano Angelino <massi.ang@gmail.com>",
   "license": "MIT",
-  "version": "0.1.03",
+  "version": "0.1.00",
   "description": "DSB18XX Lib on Particle Photon"
 }
